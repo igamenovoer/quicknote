@@ -1,0 +1,2 @@
+# quicknote
+notes about everything

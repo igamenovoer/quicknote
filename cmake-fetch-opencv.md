@@ -1,6 +1,15 @@
 # How to use cmake's fetchcontent to get and compile opencv?
 
 ```cmake
+# in fetch-common.cmake
+
+include(FetchContent)
+set(FETCHCONTENT_BASE_DIR ${PROJECT_SOURCE_DIR}/.fetch)
+Set(FETCHCONTENT_QUIET FALSE)
+```
+
+```cmake
+# in fetch-opencv.cmake
 # define fetch content location
 include(${PROJECT_SOURCE_DIR}/cmake/fetch-common.cmake)
 

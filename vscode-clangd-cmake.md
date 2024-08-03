@@ -1,12 +1,13 @@
 # How to configure clangd C++ intellisense in CMake project
 
-Use this in .vscode/settings.json
+Use this in .vscode/settings.json, note that we disable the annoying automatic header insertion feature.
 
 ```json
 {
     "clangd.arguments": [
         "--background-index",
-        "--compile-commands-dir=${cmake.buildDirectory}"
+        "--compile-commands-dir=${cmake.buildDirectory}",
+        "--header-insertion=never"
     ],
     "cmake.preferredGenerators": [
         "Ninja"

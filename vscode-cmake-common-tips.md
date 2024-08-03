@@ -9,3 +9,5 @@ In .vscode/settings.json, add this
   "cmake.buildDirectory": "${workspaceFolder}/build/${buildType}",
 }
 ```
+
+For complex usage, see this [issue](https://github.com/microsoft/vscode-cmake-tools/issues/151)

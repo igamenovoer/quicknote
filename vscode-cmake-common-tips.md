@@ -6,7 +6,6 @@ This is useful when you switch between build types a lot, can save your building
 In .vscode/settings.json, add this
 ```json
 {
-  ...
   "cmake.buildDirectory": "${workspaceFolder}/build/${buildType}",
 }
 ```

@@ -1,4 +1,4 @@
-# How to run cmake-built opencv-based programs with gui
+# How to use imshow() in ssh cmake projects
 
 Create .vscode/tasks.json in your workspace, and use this task. 
 Note that the `DISPLAY` is key to use `imshow()`, point it to any X-server you created. In this example, the program is run inside a docker container, and X-server is setup in host localhost:10.0

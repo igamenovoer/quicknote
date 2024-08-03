@@ -1,4 +1,4 @@
-# How to use cmake's fetchcontent to get and compile opencv?
+# How to use cmake's fetchcontent to get and compile opencv with options?
 
 ```cmake
 # in fetch-common.cmake

@@ -32,6 +32,7 @@ Then, in vscode, create launch.json, and use this
             }
         ]
     }
-
 ]
 ```
+
+Start debugging and you can use `imshow()`. If you **start without debugging**, then `DISPLAY` will not be set and you get error calling `imshow()`

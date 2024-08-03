@@ -40,3 +40,13 @@ function(fetch_opencv)
     set(OpenCV_DIR ${CMAKE_CURRENT_BINARY_DIR} PARENT_SCOPE)
 endfunction()
 ```
+
+use it like this
+
+```cmake
+option(WITH_LATEST_OPENCV "Download and build the latest version of OpenCV" OFF)
+if(WITH_LATEST_OPENCV)
+    include(${PROJECT_SOURCE_DIR}/cmake/fetch-opencv.cmake)
+    fetch_opencv()
+endif()
+```

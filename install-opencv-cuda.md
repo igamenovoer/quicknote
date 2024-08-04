@@ -8,7 +8,13 @@ This script is suitable for use inside docker
 # download and install latest opencv
 
 # install dependencies
-sudo apt install libhdf5-dev qt6-base-dev
+sudo apt update
+
+# use qt6 for gui
+sudo apt install -y qt6-base-dev libqt6core5compat6-dev libglx-dev libgl1-mesa-dev 
+
+# use ninja for building, hdf5-dev for reading and writing hdf5 files
+sudo apt install -y libhdf5-dev ninja-build
 
 # check if cuda-toolkit is installed, whose name is cuda-toolkit-xxx
 # if not, raise an error
@@ -20,8 +26,10 @@ else
     echo "cuda toolkit is installed, version is $cuda_version"
 fi
 
-# download directory
+# opencv will be built here
 tmp_dir=~/tmp
+
+# mkdir ~/tmp if it doesn't exist
 if [ ! -d $tmp_dir ]; then
     mkdir $tmp_dir
 fi
@@ -84,4 +92,3 @@ rm -rf $build_dir
 
 # good to go
 echo "opencv-gpu is now installed"
-```

@@ -2,7 +2,7 @@
 
 In vscode, install [clang-format plugin](https://github.com/xaverh/vscode-clang-format), and set your formatter to this plugin.
 
-In your workspace, create a .clang-format file, and use the followings ([apple style](https://github.com/haaakon/Apple-clang-format)).
+In your workspace, create a `.clang-format` file, and use the followings ([apple style](https://github.com/haaakon/Apple-clang-format)).
 
 ```yaml
 Language: Cpp
@@ -56,7 +56,7 @@ TabWidth: 8
 UseTab: Never
 ```
 
-In your .vscode/settings.json (or the global user settings), use this to format the code each time you press ctrl+s.
+In your `.vscode/settings.json` (or the global user settings), use this to format the code each time you press ctrl+s.
 
 ```json
 {

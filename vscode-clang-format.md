@@ -1,6 +1,6 @@
 # How to use clang-format to unify your coding style
 
-In vscode, install [clang-format plugin](https://github.com/xaverh/vscode-clang-format), and set your formatter to this plugin.
+In vscode, install [clang-format plugin](https://github.com/xaverh/vscode-clang-format), and set your formatter to this plugin ([how?](https://stackoverflow.com/questions/30064480/how-do-you-change-the-formatting-options-in-visual-studio-code)).
 
 In your system, install `clang-format`
 - linux: use `apt install clang-format`

@@ -2,6 +2,10 @@
 
 In vscode, install [clang-format plugin](https://github.com/xaverh/vscode-clang-format), and set your formatter to this plugin.
 
+In your system, install `clang-format`
+- linux: use `apt install clang-format`
+- windows: install [llvm](https://llvm.org/builds/), and add `clang-format` to your `PATH` environment
+
 In your workspace, create a `.clang-format` file, and use the followings ([apple style](https://github.com/haaakon/Apple-clang-format)).
 
 ```yaml

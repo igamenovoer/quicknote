@@ -2,6 +2,8 @@
 
 In vscode, install [clang-format plugin](https://github.com/xaverh/vscode-clang-format), and set your formatter to this plugin ([how?](https://stackoverflow.com/questions/30064480/how-do-you-change-the-formatting-options-in-visual-studio-code)).
 
+NOTE: Make sure you DO NOT use `clangd` for formatting, it does not work, use the `clang-format` plugin instead.
+
 In your system, install `clang-format`
 - linux: use `apt install clang-format`
 - windows: install [llvm](https://llvm.org/builds/), and add `clang-format` to your `PATH` environment
@@ -62,10 +64,12 @@ UseTab: Never
 
 In your `.vscode/settings.json` (or the global user settings), use this to format the code each time you press ctrl+s.
 
+This setting only formats c++ automatically, for other options, see this [stackoverflow](https://stackoverflow.com/questions/44831313/how-to-exclude-file-extensions-and-languages-from-format-on-save-in-vscode) and the [language identifiers](https://code.visualstudio.com/docs/languages/identifiers)
+
 ```json
 {
-  "editor.formatOnSave": true
+    "[cpp]": {
+        "editor.formatOnSave": true
+    }
 }
 ```
-
-Make sure you DO NOT use `clangd` for formatting, it does not work.

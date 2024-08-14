@@ -3,6 +3,7 @@
 ## Statistics
 
 ### [pixi-stats](https://www.npmjs.com/package/pixi-stats)
+- this is used to show fps on page
 - install: `pnpm install pixi-stats`
 - import: `import * as pxstat from 'pixi-stats'`
 - usage:

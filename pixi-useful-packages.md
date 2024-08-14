@@ -2,7 +2,7 @@
 
 ## Statistics
 
-### pixi-stats
+### [pixi-stats](https://www.npmjs.com/package/pixi-stats)
 - install: `pnpm install pixi-stats`
 - import: `import * as pxstat from 'pixi-stats'`
 - usage:

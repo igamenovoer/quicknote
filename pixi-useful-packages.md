@@ -6,7 +6,7 @@
 - install: `pnpm install pixi-stats`
 - import: `import * as pxstat from 'pixi-stats'`
 - usage:
-```ts
+```typescript
 // add stats to app
 this.pixiStats = pxstat.addStats(document, this.app);
 PIXI.Ticker.shared.add(this.pixiStats.update, this.pixiStats, PIXI.UPDATE_PRIORITY.UTILITY);

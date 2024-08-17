@@ -38,6 +38,57 @@ fetch('flowers.jpg').then(function(response) {
 });
 ```
 
+## Using OffscreenCanvas
+Offscreen canvas allows one to dynamically generate images (potentially in another thread), and then blit it to the visible canvas.
+
+See the [official doc](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas)
+
+Suppose you have 2 visible canvases
+
+```html
+<canvas id="one"></canvas> <canvas id="two"></canvas>
+```
+
+Then you can use offscreen canvas to manipulate them
+
+```javascript
+const one = document.getElementById("one").getContext("bitmaprenderer");
+const two = document.getElementById("two").getContext("bitmaprenderer");
+
+const offscreen = new OffscreenCanvas(256, 256);
+const gl = offscreen.getContext("webgl");
+
+// Perform some drawing for the first canvas using the gl context
+const bitmapOne = offscreen.transferToImageBitmap();
+one.transferFromImageBitmap(bitmapOne);
+
+// Perform some more drawing for the second canvas
+const bitmapTwo = offscreen.transferToImageBitmap();
+two.transferFromImageBitmap(bitmapTwo);
+```
+
+Another way to use it is the control a visible canvas with an OffscreenCanvas
+
+```javascript
+const htmlCanvas = document.getElementById("canvas");
+const offscreen = htmlCanvas.transferControlToOffscreen();
+
+const worker = new Worker("offscreencanvas.js");
+worker.postMessage({ canvas: offscreen }, [offscreen]);
+
+// in offscreencanvas.js
+onmessage = (evt) => {
+  const canvas = evt.data.canvas;
+  const gl = canvas.getContext("webgl");
+
+  function render(time) {
+    // Perform some drawing using the gl context
+    requestAnimationFrame(render);
+  }
+  requestAnimationFrame(render);
+};
+```
+
 ## Refreshing a cached image
 see [how to replace a cached image](https://stackoverflow.com/questions/321865/how-to-clear-or-replace-a-cached-image)
 

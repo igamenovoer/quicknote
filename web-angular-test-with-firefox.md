@@ -20,3 +20,9 @@ If you do not have `karma-firefox-launcher`, install it with `npm` or `pnpm`
 ```bash
 pnpm install karma-firefox-launcher --save-dev
 ```
+
+Then, start testing with
+```bash
+# browser name is CASE SENSITIVE!
+ng test --browsers=Firefox
+```

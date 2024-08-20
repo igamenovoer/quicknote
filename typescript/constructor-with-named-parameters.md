@@ -11,7 +11,7 @@ interface SimpleStruct {
 class SimpleStruct {
     name: string = 'default';
     age: number = 200;
-    constructor(x: Partial<SimpleStruct>) {
+    constructor(x?: Partial<SimpleStruct>) {
         Object.assign(this, x);
     }
 }

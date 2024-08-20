@@ -29,3 +29,27 @@ export class NamedConstructable<T> {
     }
 }
 ```
+
+Then you can derive from this base
+
+```typescript
+import { NamedConstructable } from "../named-constructable";
+
+/**
+ * @description metadata of a video, names follows ffmpeg conventions
+ */
+export class VideoInfo extends NamedConstructable<VideoInfo> {
+    codec_name: string = '';
+    codec_tag: string = '';  //see ffprobe
+    width: number = 0;
+    height: number = 0;
+    pix_fmt: string = '';
+    frame_rate: number = 0; //fps, ffprobe::r_frame_rate
+    time_base: number = 0;  //ffprobe::time_base
+    duration_sec: number = 0;   //seconds, ffprobe::duration
+    num_frames: number = 0; //number of frames, ffprobe::nb_frames, may be missing
+}
+
+// it allows you to create object like this
+let x = new VideoInfo({codec_name: 'h264', width: 800, height: 600});
+```

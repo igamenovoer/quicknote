@@ -4,8 +4,8 @@ see [this](https://stackoverflow.com/questions/75268361/issues-with-adding-the-c
 
 ```bash
 # linux
-ffmpeg -i crowded_0820.mp4 -vf "drawtext=fontfile=Arial.ttf: text='frame=%{n} time=%{pts\:hms}':start_number=0:x=(w-tw)/2: y=h-(2*lh):fontcolor=black:fontsize=32:box=1:boxcolor=white:boxborderw=5" output.mp4
+ffmpeg -i input.mp4 -vf "drawtext=fontfile=Arial.ttf: text='frame=%{n} time=%{pts\:hms}':start_number=0:x=(w-tw)/2: y=h-(2*lh):fontcolor=black:fontsize=32:box=1:boxcolor=white:boxborderw=5" output.mp4
 
 # windows
-ffmpeg -i crowded_0820.mp4 -vf "drawtext=fontfile=Arial.ttf: text='frame=%%{n} time=%%{pts\:hms}':start_number=0:x=(w-tw)/2: y=h-(2*lh):fontcolor=black:fontsize=32:box=1:boxcolor=white:boxborderw=5" output.mp4
+ffmpeg -i input.mp4 -vf "drawtext=fontfile=Arial.ttf: text='frame=%%{n} time=%%{pts\:hms}':start_number=0:x=(w-tw)/2: y=h-(2*lh):fontcolor=black:fontsize=32:box=1:boxcolor=white:boxborderw=5" output.mp4
 ```

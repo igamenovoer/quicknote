@@ -8,3 +8,5 @@
   - [rxjs/component-store](https://ngrx.io/guide/component-store)
 - parse user-agent information
   - [ua-parser-js](https://www.npmjs.com/package/ua-parser-js)
+- data structures
+  - [data-structures-typed](https://www.npmjs.com/package/data-structure-typed)

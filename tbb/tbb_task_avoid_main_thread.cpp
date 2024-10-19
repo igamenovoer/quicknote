@@ -3,8 +3,10 @@
 // - BAD: call task_group.wait() in task_arena.execute() (which is also in main thread), it will block
 // - BAD: call both task_group.run() and task_group.wait() in main thread, it will block
 // - OK: use this_task_arena::isolate() to both add task and do task_group.wait(), the isolate() prevents access to calling thread.
-// - OK: create task_arena and task_group in main thread, use task_group.run() inside task_arena.execute(), but do task_group.wait() in main thread.
+// - OK: create task_arena and task_group in main thread, use task_group.run() inside task_arena.execute(), but do task_group.wait() in main thread (DO NOT call in arena.execute()).
 // - OK: create a custom thread, and do anything there, it will not block the main thread, if needed it only blocks the custom thread.
+// - NOTE: both tbb::this_task_arena::isolate() and task_arena.execute() are run in the calling thread, and block it, but inside those functions, 
+//         it affects task_group, if you use task_group.run() there, those tasks are to be scheduled in task_arena.
 
 #include <tbb/tbb.h>
 #include <chrono>

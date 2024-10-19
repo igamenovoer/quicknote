@@ -1,4 +1,11 @@
-// demostrate how to avoid a task to be executed in main thread and block it
+// demostrate how to avoid a blocking task to be executed in main thread and block the thread
+// conclusion:
+// - BAD call task_group.wait() in task_arena.execute() (which is also in main thread), it will block
+// - BAD: call both task_group.run() and task_group.wait() in main thread, it will block
+// - OK: use this_task_arena::isolate() to both add task and do task_group.wait(), the isolate() prevents access to calling thread.
+// - OK: create task_arena and task_group in main thread, use task_group.run() inside task_arena.execute(), but do task_group.wait() in main thread.
+// - OK: create a custom thread, and do anything there, it will not block the main thread, if needed it only blocks the custom thread.
+
 #include <tbb/tbb.h>
 #include <chrono>
 #include <thread>
@@ -8,6 +15,9 @@
 #include <fmt/format.h>
 #include <fmt/color.h>
 
+int do_works_with_arena(int num_worker_threads, int num_tasks, bool no_main_thread_in_arena = false);
+int do_works_avoid_main_thread(int num_worker_threads, int num_tasks);
+int do_works_originated_from_custom_thread(int num_worker_threads, int num_tasks);
 int do_works_compare_strategy(int num_worker_threads, int num_tasks);
 
 int main()
@@ -163,6 +173,218 @@ int do_works_compare_strategy(int num_worker_threads, int num_tasks)
     spdlog::info("");
     spdlog::info("This approach ensures complete isolation of task execution from the main thread,");
     spdlog::info("providing the most robust solution for avoiding main thread involvement in task processing.");
+
+    return 0;
+}
+
+
+int do_works_originated_from_custom_thread(int num_worker_threads, int num_tasks)
+{
+    //! Save the main thread id
+    std::thread::id main_thread_id = std::this_thread::get_id();
+    std::atomic<int> task_counter(0);
+
+    //! Create a worker thread
+    std::thread my_worker_thread([&]() {
+        bool use_separate_arena = true; // Switch to control whether to use a separate task arena
+        tbb::task_group group;
+        std::unique_ptr<tbb::task_arena> arena;
+
+        if (use_separate_arena) {
+            arena = std::make_unique<tbb::task_arena>(num_worker_threads, 0);
+        }
+
+        //! Save the worker thread id
+        std::thread::id worker_thread_id = std::this_thread::get_id();
+
+        auto execute_tasks = [&]() {
+            //! Submit num_tasks tasks
+            for (int i = 0; i < num_tasks; ++i) {
+                auto task = [&, worker_thread_id]() {
+                    //! Check if the task is running on the main thread
+                    if (std::this_thread::get_id() == main_thread_id) {
+                        throw std::runtime_error("Task is running on the main thread");
+                    }
+
+                    int task_id = ++task_counter;
+                    std::thread::id current_thread_id = std::this_thread::get_id();
+                    uint64_t thread_id = static_cast<uint64_t>(std::hash<std::thread::id>{}(current_thread_id));
+
+                    //! Generate random wait time between 50 and 100 ms
+                    std::random_device rd;
+                    std::mt19937 gen(rd());
+                    std::uniform_int_distribution<> dis(50, 100);
+                    int wait_ms = dis(gen);
+
+                    //! Check if the task is running on the worker thread
+                    bool is_worker_thread = (current_thread_id == worker_thread_id);
+                    auto thread_color = is_worker_thread ? fmt::color::magenta : fmt::color::green;
+
+                    spdlog::info("[thread_id={}]{}Task {} {} (waiting for {} ms)", thread_id,
+                                 fmt::format(fg(thread_color), "[task]"),
+                                 task_id, fmt::format(fg(fmt::color::yellow), "started"), wait_ms);
+                    std::this_thread::sleep_for(std::chrono::milliseconds(wait_ms));
+                    spdlog::info("[thread_id={}]{}Task {} {}", thread_id,
+                                 fmt::format(fg(thread_color), "[task]"),
+                                 task_id, fmt::format(fg(fmt::color::green), "completed"));
+                };
+
+                if (use_separate_arena) {
+                    arena->execute([&group, &task]() {
+                        group.run(task);
+                    });
+                } else {
+                    group.run(task);
+                }
+            }
+        };
+
+        if (use_separate_arena) {
+            arena->execute(execute_tasks);
+        } else {
+            execute_tasks();
+        }
+
+        spdlog::info("[thread_id={}]{}Waiting for tasks to complete...",
+                     static_cast<uint64_t>(std::hash<std::thread::id>{}(std::this_thread::get_id())),
+                     fmt::format(fg(fmt::color::yellow), "[worker]"));
+        group.wait();
+        spdlog::info("[thread_id={}]{}All tasks completed.",
+                     static_cast<uint64_t>(std::hash<std::thread::id>{}(std::this_thread::get_id())),
+                     fmt::format(fg(fmt::color::yellow), "[worker]"));
+    });
+
+    //! Wait for the worker thread to finish
+    my_worker_thread.join();
+
+    spdlog::info("[thread_id={}]{}All tasks completed successfully",
+                 static_cast<uint64_t>(std::hash<std::thread::id>{}(main_thread_id)),
+                 fmt::format(fg(fmt::color::red), "[main]"));
+    return 0;
+}
+
+
+//! This function demonstrates how to avoid running tasks on the main thread
+/*!
+ * This function creates a specified number of tasks in a given number of worker threads and waits for them to complete.
+ * It throws an exception if any task is running on the main thread.
+ *
+ * @param num_worker_threads The number of worker threads to use in the task arena
+ * @param num_tasks The number of tasks to create and execute
+ * @return int Returns 0 on successful completion
+ */
+int do_works_avoid_main_thread(int num_worker_threads, int num_tasks)
+{
+    // we only use this number of worker threads in the arena
+    // you can see that in thread id output
+    const int NUM_ARENA_THREADS = num_worker_threads;
+    const int NUM_TASKS = num_tasks;
+    tbb::task_group group;
+    std::atomic<int> task_counter(0);
+    std::thread::id main_thread_id = std::this_thread::get_id();
+    std::shared_ptr<tbb::task_arena> arena;
+
+    //! Create 1000 tasks in worker threads
+    tbb::this_task_arena::isolate([&]() {
+        // create arena here, and then use it to execute tasks
+        // 0 means the arena will also uses the calling thread as its own worker thread
+        // because we are already in isolate mode, so we don't need to worry about taking over the main thread
+        arena = std::make_shared<tbb::task_arena>(NUM_ARENA_THREADS, 0);
+        spdlog::info("Isolation mode, current thread id: {}", static_cast<uint64_t>(std::hash<std::thread::id>{}(std::this_thread::get_id())));
+
+        for (int i = 0; i < NUM_TASKS; ++i) {
+            arena->execute([&group, &task_counter, main_thread_id]() {
+                group.run([&task_counter, main_thread_id]() {
+                    std::thread::id current_thread_id = std::this_thread::get_id();
+                    if (current_thread_id == main_thread_id) {
+                        throw std::runtime_error("Task is running on the main thread");
+                    }
+
+                    int task_id = ++task_counter;
+                    uint64_t thread_id = static_cast<uint64_t>(std::hash<std::thread::id>{}(current_thread_id));
+                    std::random_device rd;
+                    std::mt19937 gen(rd());
+                    std::uniform_int_distribution<> dis(20, 50);
+                    int wait_ms = dis(gen);
+                    spdlog::info("[thread_id={}] Task {} {} (waiting for {} ms)", thread_id, task_id, fmt::format(fg(fmt::color::yellow), "started"), wait_ms);
+                    std::this_thread::sleep_for(std::chrono::milliseconds(wait_ms));
+                    spdlog::info("[thread_id={}] Task {} {}", thread_id, task_id, fmt::format(fg(fmt::color::green), "completed"));
+                });
+            });
+        }
+    });
+
+    //! Wait for all tasks to complete
+    spdlog::info("Main thread waiting for all tasks to complete...");
+    tbb::this_task_arena::isolate([&]() {
+        group.wait();
+    });
+    // arena.execute([&group]() {
+    //     group.wait();
+    // });
+    spdlog::info("All tasks completed, no task ever executed on the main thread");
+
+    return 0;
+}
+
+/**
+ * @brief This function demonstrates how to use tbb::task_arena to execute tasks in parallel
+ * @details This function creates 10 jobs in the arena and waits for them to complete.
+ *          It also demonstrates how to wait for all jobs to complete using sleep.
+ */
+int do_works_with_arena(int num_worker_threads, int num_tasks, bool no_main_thread_in_arena)
+{
+    std::shared_ptr<tbb::task_arena> arena;
+    std::shared_ptr<tbb::task_group> group;
+    std::atomic<int> counter(0);
+    bool wait_in_arena = true;
+    // if (no_main_thread_in_arena) {
+    //     tbb::this_task_arena::isolate([&]() {
+    //         arena = std::make_shared<tbb::task_arena>(num_worker_threads, 0);
+
+    //         // execute a dummy task to initialize the arena
+    //         arena->execute([&]() {
+    //             spdlog::info("[thread_id={}] Hello, TBB!", static_cast<uint64_t>(std::hash<std::thread::id>{}(std::this_thread::get_id())));
+    //         });
+    //     });
+    // } else {
+    //     arena = std::make_shared<tbb::task_arena>(num_worker_threads);
+    // }
+    arena = std::make_shared<tbb::task_arena>(num_worker_threads);
+
+    //! Fire num_tasks jobs into the arena
+    std::thread::id main_thread_id = std::this_thread::get_id();
+    arena->execute([&]() {
+        group = std::make_shared<tbb::task_group>();
+        for (int i = 0; i < num_tasks; ++i) {
+            group->run([&counter, main_thread_id] {
+                //! Assert that the task is not run in the main thread
+                if (std::this_thread::get_id() == main_thread_id) {
+                    throw std::runtime_error("Task is running on the main thread");
+                }
+
+                int current_value = ++counter;
+                uint64_t thread_id = static_cast<uint64_t>(std::hash<std::thread::id>{}(std::this_thread::get_id()));
+                spdlog::info("[thread_id={}] Job {} {}.", thread_id, current_value, fmt::format(fg(fmt::color::yellow), "started"));
+                std::this_thread::sleep_for(std::chrono::milliseconds(100));
+                spdlog::info("[thread_id={}] Job {} {}.", thread_id, current_value, fmt::format(fg(fmt::color::green), "completed"));
+            });
+        }
+    });
+
+    //! Wait for all jobs to complete
+    if (wait_in_arena) {
+        spdlog::info("[thread_id={}] Waiting for tasks to complete in arena...", static_cast<uint64_t>(std::hash<std::thread::id>{}(std::this_thread::get_id())));
+        arena->execute([&] {
+            group->wait();
+            spdlog::info("[thread_id={}] All tasks completed in arena.", static_cast<uint64_t>(std::hash<std::thread::id>{}(std::this_thread::get_id())));
+        });
+    } else {
+        uint64_t thread_id = static_cast<uint64_t>(std::hash<std::thread::id>{}(std::this_thread::get_id()));
+        spdlog::info("[thread_id={}] Waiting for tasks to complete...", thread_id);
+        group->wait();
+        spdlog::info("[thread_id={}] All tasks completed.", thread_id);
+    }
 
     return 0;
 }

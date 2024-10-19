@@ -1,6 +1,6 @@
 // demostrate how to avoid a blocking task to be executed in main thread and block the thread
 // conclusion:
-// - BAD call task_group.wait() in task_arena.execute() (which is also in main thread), it will block
+// - BAD: call task_group.wait() in task_arena.execute() (which is also in main thread), it will block
 // - BAD: call both task_group.run() and task_group.wait() in main thread, it will block
 // - OK: use this_task_arena::isolate() to both add task and do task_group.wait(), the isolate() prevents access to calling thread.
 // - OK: create task_arena and task_group in main thread, use task_group.run() inside task_arena.execute(), but do task_group.wait() in main thread.

@@ -60,6 +60,7 @@ SpacesInParentheses: false
 Standard: Cpp11
 TabWidth: 8
 UseTab: Never
+SortIncludes: false
 ```
 
 In your `.vscode/settings.json` (or the global user settings), use this to format the code each time you press ctrl+s.

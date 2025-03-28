@@ -59,6 +59,7 @@ yt-dlp $video_url `
     --output "$outputDir/%(title)s.%(ext)s" `
     --no-playlist `
     --parse-metadata "webpage_url:%(meta_source_url)s" `
+    --parse-metadata "description:%(meta_description)s" `
     --add-metadata `
     --embed-metadata `
     --progress

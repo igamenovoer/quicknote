@@ -1,0 +1,30 @@
+# enable auto select like this
+
+proxy-groups:
+-
+  name: 国外流量
+  type: url-test
+  url: "http://www.gstatic.com/generate_204"
+  interval: 300
+  proxies:
+    - 'Hong Kong-01'
+    - 'Hong Kong-02'
+    - 'Hong Kong-03'
+    - 'Hong Kong-04'
+    - 'Hong Kong-05'
+    - 'Hong Kong-06'
+    - 'Hong Kong-07'
+    - 'Hong Kong-08'
+    - 'Hong Kong-09'
+    - 'Hong Kong-10'
+    - 'Hong Kong-11'
+    - 'Hong Kong-12'
+    - 'Hong Kong-13'
+    - 'Hong Kong-14'
+    - 'Hong Kong-15'
+    - 'Hong Kong-16'
+    - 'Hong Kong-17'
+    - 'Hong Kong-18'
+    - 'Hong Kong-19'
+    - 'Hong Kong-20'
+-

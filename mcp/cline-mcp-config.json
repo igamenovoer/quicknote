@@ -1,0 +1,76 @@
+{
+  "mcpServers": {
+    "github.com/modelcontextprotocol/servers/tree/main/src/filesystem": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "--mount",
+        "type=bind,src=d:/code/HumanModelGeneration,dst=/projects/HumanModelGeneration",
+        "mcp/filesystem",
+        "/projects"
+      ],
+      "disabled": false,
+      "autoApprove": []
+    },
+    "github.com/AgentDeskAI/browser-tools-mcp": {
+      "command": "npx",
+      "args": [
+        "@agentdeskai/browser-tools-mcp@latest"
+      ],
+      "disabled": false,
+      "autoApprove": [
+        "getNetworkLogs",
+        "getConsoleLogs",
+        "getConsoleErrors",
+        "getNetworkErrors"
+      ]
+    },
+    "github.com/tavily-ai/tavily-mcp": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "TAVILY_API_KEY=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",
+        "mcp/tavily:latest"
+      ],
+      "disabled": false,
+      "autoApprove": [
+        "tavily-search",
+        "tavily-extract",
+        "tavily-crawl",
+        "tavily-map"
+      ]
+    },
+    "github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "-i",
+        "mcp/sequentialthinking"
+      ],
+      "disabled": false,
+      "autoApprove": []
+    },
+    "github.com/zcaceres/fetch-mcp": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "HTTP_PROXY=http://host.docker.internal:30080",
+        "-e",
+        "HTTPS_PROXY=http://host.docker.internal:30080",
+        "mcp/fetch:latest",
+        "--ignore-robots-txt"
+      ],
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}

@@ -1,0 +1,17 @@
+# Cline Rules for MCP Tool Usage
+
+## MCP Tool Preferences
+- For web searches and research tasks, prefer using Tavily search tools, and do not print the searched result.
+- For file system operations within the project, use the filesystem MCP server
+- For browser automation and web debugging, use the browser-tools-mcp
+- For complex reasoning tasks, use the sequential thinking MCP
+- To fetch a specific web page, use the fetch-mcp
+
+## Auto-approve Guidelines
+- Always auto-approve Tavily search tools for research tasks
+- Auto-approve browser diagnostic tools (console logs, network logs, errors)
+- Require approval for file system write operations outside the project directory
+
+## Browser Paths
+- Firefox: C:\Program Files\Mozilla Firefox\firefox.exe
+- Chrome: C:\Program Files\Google\Chrome\Application\chrome.exe

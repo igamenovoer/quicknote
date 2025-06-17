@@ -1,6 +1,6 @@
 {
   "mcpServers": {
-    "github.com/modelcontextprotocol/servers/tree/main/src/filesystem": {
+    "filesystem": {
       "command": "docker",
       "args": [
         "run",
@@ -14,7 +14,7 @@
       "disabled": false,
       "autoApprove": []
     },
-    "github.com/AgentDeskAI/browser-tools-mcp": {
+    "browser-tools": {
       "command": "npx",
       "args": [
         "@agentdeskai/browser-tools-mcp@latest"
@@ -27,7 +27,7 @@
         "getNetworkErrors"
       ]
     },
-    "github.com/tavily-ai/tavily-mcp": {
+    "tavily": {
       "command": "docker",
       "args": [
         "run",
@@ -45,7 +45,7 @@
         "tavily-map"
       ]
     },
-    "github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking": {
+    "sequentialthinking": {
       "command": "docker",
       "args": [
         "run",
@@ -56,7 +56,7 @@
       "disabled": false,
       "autoApprove": []
     },
-    "github.com/zcaceres/fetch-mcp": {
+    "fetch": {
       "command": "docker",
       "args": [
         "run",
@@ -70,7 +70,9 @@
         "--ignore-robots-txt"
       ],
       "disabled": false,
-      "autoApprove": []
+      "autoApprove": [
+        "fetch"
+      ]
     }
   }
 }

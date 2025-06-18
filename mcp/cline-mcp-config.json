@@ -1,6 +1,10 @@
 {
   "mcpServers": {
     "filesystem": {
+      "autoApprove": [],
+      "disabled": false,
+      "timeout": 60,
+      "type": "stdio",
       "command": "docker",
       "args": [
         "run",
@@ -10,24 +14,33 @@
         "type=bind,src=d:/code/HumanModelGeneration,dst=/projects/HumanModelGeneration",
         "mcp/filesystem",
         "/projects"
-      ],
-      "disabled": false,
-      "autoApprove": []
+      ]
     },
     "browser-tools": {
-      "command": "npx",
-      "args": [
-        "@agentdeskai/browser-tools-mcp@latest"
-      ],
-      "disabled": false,
       "autoApprove": [
         "getNetworkLogs",
         "getConsoleLogs",
         "getConsoleErrors",
         "getNetworkErrors"
+      ],
+      "disabled": true,
+      "timeout": 60,
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "@agentdeskai/browser-tools-mcp@latest"
       ]
     },
     "tavily": {
+      "autoApprove": [
+        "tavily-search",
+        "tavily-extract",
+        "tavily-crawl",
+        "tavily-map"
+      ],
+      "disabled": false,
+      "timeout": 60,
+      "type": "stdio",
       "command": "docker",
       "args": [
         "run",
@@ -36,27 +49,28 @@
         "-e",
         "TAVILY_API_KEY=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",
         "mcp/tavily:latest"
-      ],
-      "disabled": false,
-      "autoApprove": [
-        "tavily-search",
-        "tavily-extract",
-        "tavily-crawl",
-        "tavily-map"
       ]
     },
     "sequentialthinking": {
+      "autoApprove": [],
+      "disabled": false,
+      "timeout": 60,
+      "type": "stdio",
       "command": "docker",
       "args": [
         "run",
         "--rm",
         "-i",
         "mcp/sequentialthinking"
-      ],
-      "disabled": false,
-      "autoApprove": []
+      ]
     },
     "fetch": {
+      "autoApprove": [
+        "fetch"
+      ],
+      "disabled": false,
+      "timeout": 60,
+      "type": "stdio",
       "command": "docker",
       "args": [
         "run",
@@ -68,11 +82,17 @@
         "HTTPS_PROXY=http://host.docker.internal:30080",
         "mcp/fetch:latest",
         "--ignore-robots-txt"
-      ],
-      "disabled": false,
-      "autoApprove": [
-        "fetch"
       ]
+    },
+    "context7-mcp": {
+      "autoApprove": [],
+      "disabled": false,
+      "timeout": 60,
+      "command": "node",
+      "args": [
+        "C:\\Users\\igamenovoer\\Documents\\Cline\\MCP\\context7-mcp\\dist\\index.js"
+      ],
+      "transportType": "stdio"
     }
   }
 }

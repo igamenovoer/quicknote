@@ -2,7 +2,13 @@
 
 ## General rule
 - find online info if uncertain
-- when fetching online data, fetch 30000 characters each time.
+- when using fetch mcp, set the "max_length" property to 30000, like this:
+```json
+{
+  ...
+  "max_length": 30000
+}
+```
 
 ## Rules for online data retrieval
 - when looking for online documentations, check the links provided by "Online Documentations" section first, then context7, then tavily

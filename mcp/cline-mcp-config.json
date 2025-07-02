@@ -28,23 +28,12 @@
         }
     },
     "fetch": {
-      "autoApprove": [
-        "fetch"
-      ],
       "disabled": false,
       "timeout": 60,
       "type": "stdio",
-      "command": "docker",
+      "command": "uvx",
       "args": [
-        "run",
-        "-i",
-        "--rm",
-        "-e",
-        "HTTP_PROXY=http://host.docker.internal:30080",
-        "-e",
-        "HTTPS_PROXY=http://host.docker.internal:30080",
-        "mcp/fetch:latest",
-        "--ignore-robots-txt"
+        "mcp-server-fetch"
       ]
     },
     "context7": {

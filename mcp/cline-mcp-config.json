@@ -84,15 +84,12 @@
         "--ignore-robots-txt"
       ]
     },
-    "context7-mcp": {
-      "autoApprove": [],
-      "disabled": false,
-      "timeout": 60,
-      "command": "node",
-      "args": [
-        "C:\\Users\\igamenovoer\\Documents\\Cline\\MCP\\context7-mcp\\dist\\index.js"
-      ],
-      "transportType": "stdio"
+    "context7": {
+        "command": "bunx",
+        "args": [
+            "-y",
+            "@upstash/context7-mcp"
+        ]
     }
   }
 }

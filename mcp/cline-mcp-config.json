@@ -16,53 +16,16 @@
         "/projects"
       ]
     },
-    "browser-tools": {
-      "autoApprove": [
-        "getNetworkLogs",
-        "getConsoleLogs",
-        "getConsoleErrors",
-        "getNetworkErrors"
-      ],
-      "disabled": true,
-      "timeout": 60,
-      "type": "stdio",
-      "command": "npx",
-      "args": [
-        "@agentdeskai/browser-tools-mcp@latest"
-      ]
-    },
     "tavily": {
-      "autoApprove": [
-        "tavily-search",
-        "tavily-extract",
-        "tavily-crawl",
-        "tavily-map"
-      ],
-      "disabled": false,
-      "timeout": 60,
-      "type": "stdio",
-      "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "-e",
-        "TAVILY_API_KEY=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",
-        "mcp/tavily:latest"
-      ]
-    },
-    "sequentialthinking": {
-      "autoApprove": [],
-      "disabled": false,
-      "timeout": 60,
-      "type": "stdio",
-      "command": "docker",
-      "args": [
-        "run",
-        "--rm",
-        "-i",
-        "mcp/sequentialthinking"
-      ]
+        "type": "stdio",
+        "command": "bunx",
+        "args": [
+            "-y",
+            "tavily-mcp@latest"
+        ],
+        "env": {
+            "TAVILY_API_KEY": "YOUR_TAVILY_KEY"
+        }
     },
     "fetch": {
       "autoApprove": [

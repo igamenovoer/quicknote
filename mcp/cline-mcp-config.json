@@ -1,47 +1,35 @@
 {
   "mcpServers": {
-    "filesystem": {
-      "autoApprove": [],
-      "disabled": false,
-      "timeout": 60,
-      "type": "stdio",
-      "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "--mount",
-        "type=bind,src=d:/code/HumanModelGeneration,dst=/projects/HumanModelGeneration",
-        "mcp/filesystem",
-        "/projects"
-      ]
-    },
-    "tavily": {
-        "type": "stdio",
-        "command": "bunx",
-        "args": [
-            "-y",
-            "tavily-mcp@latest"
-        ],
-        "env": {
-            "TAVILY_API_KEY": "YOUR_TAVILY_KEY"
-        }
-    },
-    "fetch": {
-      "disabled": false,
-      "timeout": 60,
-      "type": "stdio",
-      "command": "uvx",
-      "args": [
-        "mcp-server-fetch"
-      ]
-    },
-    "context7": {
-        "command": "bunx",
-        "args": [
-            "-y",
-            "@upstash/context7-mcp"
-        ]
-    }
+     "tavily": {
+          "type": "stdio",
+          "command": "npx",
+          "args": [
+              "-y",
+              "tavily-mcp@latest"
+          ],
+          "env": {
+              "TAVILY_API_KEY": "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"
+          }
+      },
+      "fetch": {
+          "command": "uvx",
+          "args": [
+              "mcp-server-fetch"
+          ]
+      },
+      "blender-mcp": {
+          "type": "stdio",
+          "command": "uvx",
+          "args": [
+              "blender-mcp"
+          ]
+      },
+      "context7": {
+          "command": "npx",
+          "args": [
+              "-y",
+              "@upstash/context7-mcp"
+          ]
+      }
   }
 }

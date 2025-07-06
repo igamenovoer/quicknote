@@ -26,142 +26,50 @@ context/
 ### design/
 **Purpose**: Store technical design documents and API specifications before implementation begins.
 
-**Required Content Types**:
-- API interface specifications and endpoint definitions
-- System architecture diagrams and component relationships
-- Technical decision documentation with rationales
-- Data models and schema definitions
-- Protocol specifications and integration patterns
-- Security and performance requirement documentation
-
-**Usage Requirements**:
-- Create design documents before major implementation work
-- Update designs when significant system changes occur
-- Include rationale for technical decisions and trade-offs
-- Document constraints, limitations, and future extensibility
+**Recommended Usage**:
+This directory typically contains design documents that outline how systems should work before implementation. Common usage patterns include API interface specifications, system architecture diagrams, technical decision documentation with rationales, data models and schema definitions, protocol specifications, and security considerations. Projects might use this space to document constraints, trade-offs, and future extensibility plans. The actual content and organization depends on the project's specific design workflow and documentation needs.
 
 ### plans/
 **Purpose**: Contain implementation roadmaps, project planning, and development coordination.
 
-**Required Content Types**:
-- Feature development plans with task breakdowns
-- Sprint planning and milestone definitions
-- Resource allocation and timeline estimates
-- Risk assessment and mitigation strategies
-- Release planning and versioning schedules
-- Team coordination and workflow processes
-
-**Usage Requirements**:
-- Create plans before starting development cycles
-- Break down complex features into manageable tasks
-- Define success criteria and completion milestones
-- Update plans as requirements and scope evolve
+**Recommended Usage**:
+This directory commonly holds planning documents that organize development work over time. Projects often store feature development plans with task breakdowns, sprint planning and milestone definitions, resource allocation estimates, risk assessments, and release planning schedules. Teams might use this space for coordination workflows, timeline tracking, and scope management. The planning approach and documentation style can vary based on project methodology, team size, and organizational preferences.
 
 ### hints/
 **Purpose**: Provide programming tutorials, development guides, and best practice documentation.
 
-**Required Content Types**:
-- Technology-specific programming tutorials
-- Development best practices and coding standards
-- Common problem solutions and troubleshooting guides
-- Tool usage instructions and workflow tips
-- Framework-specific patterns and implementations
-- Performance optimization techniques
-
-**Usage Requirements**:
-- Document recurring solutions for common problems
-- Provide quick reference materials for development decisions
-- Include code examples and practical demonstrations
-- Maintain currency with evolving technologies and practices
+**Recommended Usage**:
+This directory serves as a knowledge base for development guidance and solutions. Projects commonly store technology-specific tutorials, development best practices, troubleshooting guides, tool usage instructions, and framework-specific patterns. Teams might document recurring solutions, performance optimization techniques, and quick reference materials. The content could include code examples, workflow tips, and practical demonstrations. What goes here depends on the team's learning needs and the technologies being used.
 
 ### summaries/
 **Purpose**: Maintain project experience repository and knowledge base.
 
-**Required Content Types**:
-- Lessons learned from development challenges
-- Architecture evolution and design decision history
-- Performance optimization discoveries and results
-- Integration patterns and successful solutions
-- Project retrospectives and improvement insights
-- Technology evaluation summaries
-
-**Usage Requirements**:
-- Document significant learning experiences
-- Capture architectural decisions and their outcomes
-- Record successful problem-solving approaches
-- Maintain institutional knowledge across team changes
+**Recommended Usage**:
+This directory captures accumulated project wisdom and experience. Teams often document lessons learned from development challenges, architecture evolution histories, performance optimization discoveries, and successful integration patterns. Projects might store retrospectives, technology evaluations, and institutional knowledge that helps preserve context across team changes. The format and depth of summaries can vary from brief notes to detailed case studies, depending on what proves most valuable for the team.
 
 ### tasks/
 **Purpose**: Coordinate specific development requests between humans and AI assistants.
 
-**Required Content Types**:
-- Clearly defined development task specifications
-- Feature requirements with acceptance criteria
-- Bug reports with reproduction steps
-- Enhancement requests with business justification
-- Research tasks with expected deliverables
-- Maintenance and refactoring assignments
-
-**Usage Requirements**:
-- Provide clear, actionable task definitions
-- Include acceptance criteria and success metrics
-- Specify priority levels and deadlines
-- Link to related issues or documentation
+**Recommended Usage**:
+This directory facilitates communication between human developers and AI assistants about specific work items. Common content includes development task specifications, feature requirements, bug reports, enhancement requests, research assignments, and maintenance tasks. Projects might structure these with acceptance criteria, priority levels, and links to related documentation. The organization could range from simple task lists to detailed specifications, depending on project complexity and collaboration needs.
 
 ### logs/
 **Purpose**: Maintain development history and session continuity for AI assistants.
 
-**Required Content Types**:
-- AI assistant session logs and conversation summaries
-- Decision-making processes and outcomes documentation
-- Debugging sessions with solution paths
-- Project evolution timeline and major milestones
-- Context preservation for multi-session projects
-- Learning progression and capability development
-
-**Usage Requirements**:
-- Record significant development sessions and outcomes
-- Document decision-making rationale for future reference
-- Maintain continuity information for AI assistant context
-- Track project evolution and learning progression
+**Recommended Usage**:
+This directory preserves context and history for ongoing AI-assisted development. Projects commonly store AI assistant session summaries, decision-making processes, debugging session outcomes, and project evolution timelines. Teams might document significant development milestones, learning progressions, and context information that helps maintain continuity across multiple sessions. The logging approach can vary from detailed transcripts to high-level summaries, depending on what provides the most value for maintaining project context.
 
 ### refcode/
 **Purpose**: Store reference implementations and example code from external sources.
 
-**Required Content Types**:
-- Example implementations from similar projects
-- Library usage patterns and integration examples
-- Best practice code demonstrations
-- External repository references and git submodules
-- Code snippets for common operations
-- Framework-specific implementation patterns
-
-**Usage Requirements**:
-- Include clear attribution for external code sources
-- Document relevance to current project needs
-- Maintain licensing compliance for referenced code
-- Update references when better examples become available
-- Use subdirectories for different technologies or frameworks as needed
-- Include git submodules for complete external repositories when appropriate
+**Recommended Usage**:
+This directory holds external code examples and reference implementations that inform project development. Common content includes example implementations from similar projects, library usage patterns, best practice demonstrations, and code snippets for common operations. Projects might organize content using subdirectories for different technologies, include git submodules for complete repositories, or store framework-specific patterns. Teams should maintain clear attribution for external sources and document relevance to current project needs while respecting licensing requirements.
 
 ### tools/
 **Purpose**: House custom development utilities and project-specific automation scripts.
 
-**Required Content Types**:
-- Code generation and analysis utilities
-- Development workflow automation scripts
-- Project-specific build and deployment tools
-- Data processing and transformation utilities
-- Testing and quality assurance helpers
-- Documentation generation tools
-
-**Usage Requirements**:
-- Create tools that solve recurring development problems
-- Document tool purpose, usage, and dependencies
-- Maintain tools as project requirements evolve
-- Share useful tools across similar projects
-- Organize by functionality as needed
-- Include usage documentation for each tool
+**Recommended Usage**:
+This directory contains project-specific utilities and automation scripts that support development workflows. Common content includes code generation tools, build and deployment automation, data processing utilities, testing helpers, and documentation generators. Projects might organize tools by functionality and include usage documentation for each utility. The tools can range from simple scripts to complex automation systems, depending on project needs and team preferences. Teams often share useful tools across similar projects while maintaining them as requirements evolve.
 
 ## Implementation Requirements
 

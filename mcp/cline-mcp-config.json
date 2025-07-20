@@ -2,9 +2,8 @@
   "mcpServers": {
      "tavily": {
           "type": "stdio",
-          "command": "npx",
+          "command": "bunx",
           "args": [
-              "-y",
               "tavily-mcp@latest"
           ],
           "env": {
@@ -17,17 +16,9 @@
               "mcp-server-fetch"
           ]
       },
-      "blender-mcp": {
-          "type": "stdio",
-          "command": "uvx",
-          "args": [
-              "blender-mcp"
-          ]
-      },
       "context7": {
-          "command": "npx",
+          "command": "bunx",
           "args": [
-              "-y",
               "@upstash/context7-mcp"
           ]
       }

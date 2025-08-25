@@ -5,9 +5,9 @@ function aider-gpt5 {
     [CmdletBinding()]
     param(
         [string]$Model = "gpt-5-2025-08-07",
-        [string]$BaseUrl = "$env:AIDER_DEFAULT_MODEL_URL",
+        [string]$BaseUrl = "https://yunwu.ai/v1",
         # Prefer pulling the API key from environment instead of storing plaintext in the profile
-        [string]$ApiKey = $env:AIDER_API_KEY,
+        [string]$ApiKey = "sk-...",
         [string]$WeakModel = "gpt-4o",
         # Optional one-shot message to send via --message
         [string]$Message,
@@ -40,7 +40,10 @@ function aider-gpt5 {
     $argsList = @(
         '--model', $Model
         '--openai-api-base', $BaseUrl
-        '--weak-model', $WeakModel
+        '--weak-model', $WeakModel,
+        '--yes-always',
+        '--no-auto-commits',
+        '--cache-prompts'
     )
 
     # Only include API key flag if we actually have a value
@@ -61,5 +64,6 @@ function aider-gpt5 {
 
     aider @argsList
 }
+
 ```
 

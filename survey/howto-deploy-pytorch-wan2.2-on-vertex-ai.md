@@ -446,3 +446,12 @@ if __name__ == "__main__":
     args = parser.parse_args()
     main(args)
 ```
+
+## 6. References
+
+*   **PyTorch Lightning:** [Official Documentation](https://lightning.ai/docs/pytorch/stable/)
+*   **DeepSpeed:** [Official Documentation](https://deepspeed.readthedocs.io/)
+*   **Hugging Face `accelerate`:** [Official Documentation](https://huggingface.co/docs/accelerate/en/index)
+*   **Vertex AI Custom Training:** [Official Documentation](https://cloud.google.com/vertex-ai/docs/training/overview)
+*   **Wan2.2 Model:** [GitHub Repository](https://github.com/Wan-Video/Wan2.2)
+*   **Original Training Script (DiffSynth-Studio):** [GitHub Repository](https://github.com/modelscope/DiffSynth-Studio)

@@ -3,7 +3,7 @@
 Install claude code, and add this file to skip claude code sign-in requirement
 
 ```bash
-echo '{"apiKeyHelper": "echo sk-WpZWqMAiK..."}' > ~/.claude/settings.json
+echo '{"apiKeyHelper": "echo sk-WpZWqMAiK...(your true api key)"}' > ~/.claude/settings.json
 ```
 
 Then add this to your .bashrc, use `claude-kimi` to start

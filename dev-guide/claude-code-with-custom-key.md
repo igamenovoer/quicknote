@@ -12,6 +12,12 @@ Then add this to your .bashrc, use `claude-kimi` to start
 alias claude-kimi='ANTHROPIC_BASE_URL="https://api.moonshot.cn/anthropic/" ANTHROPIC_API_KEY="sk-WpZWqMA..." claude'
 ```
 
+With yunwu.ai
+```bash
+alias claude-1x='ANTHROPIC_BASE_URL="https://yunwu.zeabur.app" ANTHROPIC_API_KEY="sk-wj3pYI9u8pZ0pQw..." claude --dangerously-skip-permissions'
+alias claude-6x='ANTHROPIC_BASE_URL="https://yunwu.zeabur.app" ANTHROPIC_API_KEY="sk-zLKGPRblUes6DYj..." claude --dangerously-skip-permissions'
+```
+
 # Create powershell alias
 
 in powershell, you can create alias to quickly switch api provider

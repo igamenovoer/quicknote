@@ -1,10 +1,29 @@
 # Using Kimi K2 api with claude code
 
-Install claude code, and add this file to skip claude code sign-in requirement
+Install claude code, and run this to skip the login, it adds `hasCompletedOnBoarding:true` to the `.claude.json`
 
 ```bash
-echo '{"apiKeyHelper": "echo sk-WpZWqMAiK...(your true api key)"}' > ~/.claude/settings.json
+# skip onboarding to avoid login
+node --eval '
+    const fs = require("fs");
+    const os = require("os");
+    const path = require("path");
+    const homeDir = os.homedir(); 
+    const filePath = path.join(homeDir, ".claude.json");
+    try {
+        let config = {};
+        if (fs.existsSync(filePath)) {
+            config = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+        }
+        config.hasCompletedOnboarding = true;
+        fs.writeFileSync(filePath, JSON.stringify(config, null, 2), "utf-8");
+    } catch (e) {}'
 ```
+
+> this is the deprepcated method, do not use it anymore
+> ```bash
+> echo '{"apiKeyHelper": "echo sk-WpZWqMAiK...(your true api key)"}' > ~/.claude/settings.json
+> ```
 
 Then add this to your .bashrc, use `claude-kimi` to start
 

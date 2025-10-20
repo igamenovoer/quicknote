@@ -20,7 +20,7 @@ node --eval '
     } catch (e) {}'
 ```
 
-> this is the deprepcated method, do not use it anymore
+> below is the deprepcated method, do not use it anymore, it may interfere with provided keys
 > ```bash
 > echo '{"apiKeyHelper": "echo sk-WpZWqMAiK...(your true api key)"}' > ~/.claude/settings.json
 > ```
